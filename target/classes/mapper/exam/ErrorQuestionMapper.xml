@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xsaf1207.exam.mapper.ErrorQuestionMapper">
+  <resultMap id="BaseResultMap" type="cn.xsaf1207.exam.domain.ErrorQuestion">
+    <id column="eq_id" jdbcType="INTEGER" property="eqId" />
+    <result column="tp_id" jdbcType="INTEGER" property="tpId" />
+    <result column="u_id" jdbcType="VARCHAR" property="uId" />
+    <result column="eq_type" jdbcType="VARCHAR" property="eqType" />
+    <result column="eq_answer" jdbcType="VARCHAR" property="eqAnswer" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    eq_id, tp_id, u_id, eq_type, eq_answer
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from es_error_question
+    where eq_id = #{eqId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from es_error_question
+    where eq_id = #{eqId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.xsaf1207.exam.domain.ErrorQuestion">
+    insert into es_error_question (eq_id, tp_id, u_id, 
+      eq_type, eq_answer)
+    values (#{eqId,jdbcType=INTEGER}, #{tpId,jdbcType=INTEGER}, #{uId,jdbcType=VARCHAR}, 
+      #{eqType,jdbcType=VARCHAR}, #{eqAnswer,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xsaf1207.exam.domain.ErrorQuestion">
+    insert into es_error_question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eqId != null">
+        eq_id,
+      </if>
+      <if test="tpId != null">
+        tp_id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="eqType != null">
+        eq_type,
+      </if>
+      <if test="eqAnswer != null">
+        eq_answer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eqId != null">
+        #{eqId,jdbcType=INTEGER},
+      </if>
+      <if test="tpId != null">
+        #{tpId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="eqType != null">
+        #{eqType,jdbcType=VARCHAR},
+      </if>
+      <if test="eqAnswer != null">
+        #{eqAnswer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xsaf1207.exam.domain.ErrorQuestion">
+    update es_error_question
+    <set>
+      <if test="tpId != null">
+        tp_id = #{tpId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="eqType != null">
+        eq_type = #{eqType,jdbcType=VARCHAR},
+      </if>
+      <if test="eqAnswer != null">
+        eq_answer = #{eqAnswer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where eq_id = #{eqId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xsaf1207.exam.domain.ErrorQuestion">
+    update es_error_question
+    set tp_id = #{tpId,jdbcType=INTEGER},
+      u_id = #{uId,jdbcType=VARCHAR},
+      eq_type = #{eqType,jdbcType=VARCHAR},
+      eq_answer = #{eqAnswer,jdbcType=VARCHAR}
+    where eq_id = #{eqId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xsaf1207.sys.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="cn.xsaf1207.sys.domain.Role">
+    <id column="r_id" jdbcType="INTEGER" property="rId" />
+    <result column="r_name" jdbcType="VARCHAR" property="rName" />
+    <result column="r_desc" jdbcType="VARCHAR" property="rDesc" />
+    <result column="r_avaiable" jdbcType="VARCHAR" property="rAvaiable" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    r_id, r_name, r_desc, r_avaiable
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from es_role
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from es_role
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.xsaf1207.sys.domain.Role">
+    insert into es_role (r_id, r_name, r_desc, 
+      r_avaiable)
+    values (#{rId,jdbcType=INTEGER}, #{rName,jdbcType=VARCHAR}, #{rDesc,jdbcType=VARCHAR}, 
+      #{rAvaiable,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xsaf1207.sys.domain.Role">
+    insert into es_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rId != null">
+        r_id,
+      </if>
+      <if test="rName != null">
+        r_name,
+      </if>
+      <if test="rDesc != null">
+        r_desc,
+      </if>
+      <if test="rAvaiable != null">
+        r_avaiable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rId != null">
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null">
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rDesc != null">
+        #{rDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rAvaiable != null">
+        #{rAvaiable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xsaf1207.sys.domain.Role">
+    update es_role
+    <set>
+      <if test="rName != null">
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rDesc != null">
+        r_desc = #{rDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rAvaiable != null">
+        r_avaiable = #{rAvaiable,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xsaf1207.sys.domain.Role">
+    update es_role
+    set r_name = #{rName,jdbcType=VARCHAR},
+      r_desc = #{rDesc,jdbcType=VARCHAR},
+      r_avaiable = #{rAvaiable,jdbcType=VARCHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+</mapper>

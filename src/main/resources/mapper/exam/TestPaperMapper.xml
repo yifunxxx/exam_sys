@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xsaf1207.exam.mapper.TestPaperMapper">
+  <resultMap id="BaseResultMap" type="cn.xsaf1207.exam.domain.TestPaper">
+    <id column="tp_id" jdbcType="INTEGER" property="tpId" />
+    <result column="sub_id" jdbcType="INTEGER" property="subId" />
+    <result column="u_id" jdbcType="VARCHAR" property="uId" />
+    <result column="tp_name" jdbcType="VARCHAR" property="tpName" />
+    <result column="tp_avaiable" jdbcType="VARCHAR" property="tpAvaiable" />
+    <result column="tp_creatime" jdbcType="TIMESTAMP" property="tpCreatime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tp_id, sub_id, u_id, tp_name, tp_avaiable, tp_creatime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from es_testpaper
+    where tp_id = #{tpId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from es_testpaper
+    where tp_id = #{tpId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.xsaf1207.exam.domain.TestPaper">
+    insert into es_testpaper (tp_id, sub_id, u_id, 
+      tp_name, tp_avaiable, tp_creatime
+      )
+    values (#{tpId,jdbcType=INTEGER}, #{subId,jdbcType=INTEGER}, #{uId,jdbcType=VARCHAR}, 
+      #{tpName,jdbcType=VARCHAR}, #{tpAvaiable,jdbcType=VARCHAR}, #{tpCreatime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xsaf1207.exam.domain.TestPaper">
+    insert into es_testpaper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tpId != null">
+        tp_id,
+      </if>
+      <if test="subId != null">
+        sub_id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="tpName != null">
+        tp_name,
+      </if>
+      <if test="tpAvaiable != null">
+        tp_avaiable,
+      </if>
+      <if test="tpCreatime != null">
+        tp_creatime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tpId != null">
+        #{tpId,jdbcType=INTEGER},
+      </if>
+      <if test="subId != null">
+        #{subId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="tpName != null">
+        #{tpName,jdbcType=VARCHAR},
+      </if>
+      <if test="tpAvaiable != null">
+        #{tpAvaiable,jdbcType=VARCHAR},
+      </if>
+      <if test="tpCreatime != null">
+        #{tpCreatime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xsaf1207.exam.domain.TestPaper">
+    update es_testpaper
+    <set>
+      <if test="subId != null">
+        sub_id = #{subId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="tpName != null">
+        tp_name = #{tpName,jdbcType=VARCHAR},
+      </if>
+      <if test="tpAvaiable != null">
+        tp_avaiable = #{tpAvaiable,jdbcType=VARCHAR},
+      </if>
+      <if test="tpCreatime != null">
+        tp_creatime = #{tpCreatime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where tp_id = #{tpId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xsaf1207.exam.domain.TestPaper">
+    update es_testpaper
+    set sub_id = #{subId,jdbcType=INTEGER},
+      u_id = #{uId,jdbcType=VARCHAR},
+      tp_name = #{tpName,jdbcType=VARCHAR},
+      tp_avaiable = #{tpAvaiable,jdbcType=VARCHAR},
+      tp_creatime = #{tpCreatime,jdbcType=TIMESTAMP}
+    where tp_id = #{tpId,jdbcType=INTEGER}
+  </update>
+</mapper>

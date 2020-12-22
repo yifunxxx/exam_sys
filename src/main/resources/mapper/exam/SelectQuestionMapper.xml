@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xsaf1207.exam.mapper.SelectQuestionMapper">
+  <resultMap id="BaseResultMap" type="cn.xsaf1207.exam.domain.SelectQuestion">
+    <id column="sq_id" jdbcType="INTEGER" property="sqId" />
+    <result column="tp_id" jdbcType="INTEGER" property="tpId" />
+    <result column="sq_content" jdbcType="VARCHAR" property="sqContent" />
+    <result column="sq_option" jdbcType="VARCHAR" property="sqOption" />
+    <result column="sq_answer" jdbcType="VARCHAR" property="sqAnswer" />
+    <result column="sq_score" jdbcType="VARCHAR" property="sqScore" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sq_id, tp_id, sq_content, sq_option, sq_answer, sq_score
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from es_select_question
+    where sq_id = #{sqId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from es_select_question
+    where sq_id = #{sqId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.xsaf1207.exam.domain.SelectQuestion">
+    insert into es_select_question (sq_id, tp_id, sq_content, 
+      sq_option, sq_answer, sq_score
+      )
+    values (#{sqId,jdbcType=INTEGER}, #{tpId,jdbcType=INTEGER}, #{sqContent,jdbcType=VARCHAR}, 
+      #{sqOption,jdbcType=VARCHAR}, #{sqAnswer,jdbcType=VARCHAR}, #{sqScore,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xsaf1207.exam.domain.SelectQuestion">
+    insert into es_select_question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sqId != null">
+        sq_id,
+      </if>
+      <if test="tpId != null">
+        tp_id,
+      </if>
+      <if test="sqContent != null">
+        sq_content,
+      </if>
+      <if test="sqOption != null">
+        sq_option,
+      </if>
+      <if test="sqAnswer != null">
+        sq_answer,
+      </if>
+      <if test="sqScore != null">
+        sq_score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sqId != null">
+        #{sqId,jdbcType=INTEGER},
+      </if>
+      <if test="tpId != null">
+        #{tpId,jdbcType=INTEGER},
+      </if>
+      <if test="sqContent != null">
+        #{sqContent,jdbcType=VARCHAR},
+      </if>
+      <if test="sqOption != null">
+        #{sqOption,jdbcType=VARCHAR},
+      </if>
+      <if test="sqAnswer != null">
+        #{sqAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="sqScore != null">
+        #{sqScore,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xsaf1207.exam.domain.SelectQuestion">
+    update es_select_question
+    <set>
+      <if test="tpId != null">
+        tp_id = #{tpId,jdbcType=INTEGER},
+      </if>
+      <if test="sqContent != null">
+        sq_content = #{sqContent,jdbcType=VARCHAR},
+      </if>
+      <if test="sqOption != null">
+        sq_option = #{sqOption,jdbcType=VARCHAR},
+      </if>
+      <if test="sqAnswer != null">
+        sq_answer = #{sqAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="sqScore != null">
+        sq_score = #{sqScore,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sq_id = #{sqId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xsaf1207.exam.domain.SelectQuestion">
+    update es_select_question
+    set tp_id = #{tpId,jdbcType=INTEGER},
+      sq_content = #{sqContent,jdbcType=VARCHAR},
+      sq_option = #{sqOption,jdbcType=VARCHAR},
+      sq_answer = #{sqAnswer,jdbcType=VARCHAR},
+      sq_score = #{sqScore,jdbcType=VARCHAR}
+    where sq_id = #{sqId,jdbcType=INTEGER}
+  </update>
+</mapper>

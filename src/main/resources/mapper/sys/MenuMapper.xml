@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.xsaf1207.sys.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="cn.xsaf1207.sys.domain.Menu">
+    <id column="mu_id" jdbcType="INTEGER" property="muId" />
+    <result column="mu_pid" jdbcType="INTEGER" property="muPid" />
+    <result column="mu_name" jdbcType="VARCHAR" property="muName" />
+    <result column="mu_url" jdbcType="VARCHAR" property="muUrl" />
+    <result column="mu_icon" jdbcType="VARCHAR" property="muIcon" />
+    <result column="mu_avaiable" jdbcType="VARCHAR" property="muAvaiable" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mu_id, mu_pid, mu_name, mu_url, mu_icon, mu_avaiable
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from es_menu
+    where mu_id = #{muId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from es_menu
+    where mu_id = #{muId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.xsaf1207.sys.domain.Menu">
+    insert into es_menu (mu_id, mu_pid, mu_name, 
+      mu_url, mu_icon, mu_avaiable
+      )
+    values (#{muId,jdbcType=INTEGER}, #{muPid,jdbcType=INTEGER}, #{muName,jdbcType=VARCHAR}, 
+      #{muUrl,jdbcType=VARCHAR}, #{muIcon,jdbcType=VARCHAR}, #{muAvaiable,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.xsaf1207.sys.domain.Menu">
+    insert into es_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="muId != null">
+        mu_id,
+      </if>
+      <if test="muPid != null">
+        mu_pid,
+      </if>
+      <if test="muName != null">
+        mu_name,
+      </if>
+      <if test="muUrl != null">
+        mu_url,
+      </if>
+      <if test="muIcon != null">
+        mu_icon,
+      </if>
+      <if test="muAvaiable != null">
+        mu_avaiable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="muId != null">
+        #{muId,jdbcType=INTEGER},
+      </if>
+      <if test="muPid != null">
+        #{muPid,jdbcType=INTEGER},
+      </if>
+      <if test="muName != null">
+        #{muName,jdbcType=VARCHAR},
+      </if>
+      <if test="muUrl != null">
+        #{muUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="muIcon != null">
+        #{muIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="muAvaiable != null">
+        #{muAvaiable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.xsaf1207.sys.domain.Menu">
+    update es_menu
+    <set>
+      <if test="muPid != null">
+        mu_pid = #{muPid,jdbcType=INTEGER},
+      </if>
+      <if test="muName != null">
+        mu_name = #{muName,jdbcType=VARCHAR},
+      </if>
+      <if test="muUrl != null">
+        mu_url = #{muUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="muIcon != null">
+        mu_icon = #{muIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="muAvaiable != null">
+        mu_avaiable = #{muAvaiable,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mu_id = #{muId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.xsaf1207.sys.domain.Menu">
+    update es_menu
+    set mu_pid = #{muPid,jdbcType=INTEGER},
+      mu_name = #{muName,jdbcType=VARCHAR},
+      mu_url = #{muUrl,jdbcType=VARCHAR},
+      mu_icon = #{muIcon,jdbcType=VARCHAR},
+      mu_avaiable = #{muAvaiable,jdbcType=VARCHAR}
+    where mu_id = #{muId,jdbcType=INTEGER}
+  </update>
+</mapper>

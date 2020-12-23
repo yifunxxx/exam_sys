@@ -125,4 +125,28 @@
       u_avaiable = #{uAvaiable,jdbcType=VARCHAR}
     where u_id = #{uId,jdbcType=VARCHAR}
   </update>
+
+  <!-- 查询所有用户 -->
+  <select id="selectAllUser"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from es_user
+    <where>
+      <if test="uId != null and uId !=''">
+        and u_id like concat("%",#{uId},"%")
+      </if>
+      <if test="uName != null and uName !=''">
+        and u_name like concat("%",#{uName},"%")
+      </if>
+      <if test="csId != null and csId !=''">
+        and cs_id like concat("%",#{csId},"%")
+      </if>
+      <if test="uPhone != null and uPhone !=''">
+        and u_phone like concat("%",#{uPhone},"%")
+      </if>
+      <if test="uSex != null">
+        and u_sex = #{uSex}
+      </if>
+    </where>
+  </select>
 </mapper>

@@ -4,9 +4,11 @@ import cn.xsaf1207.sys.domain.User;
 import cn.xsaf1207.sys.mapper.UserMapper;
 import cn.xsaf1207.sys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserSreviceImpl implements UserService {
 
     @Autowired

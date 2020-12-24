@@ -50,15 +50,20 @@ public class UserSreviceImpl implements UserService {
     @Override
     public int resetPas(UserVo userVo) {
         String u_id = userVo.getuId();
+
         User user = new User();
         String pwd = DigestUtils.md5DigestAsHex(u_id.getBytes());
         user.setuPwd(pwd);
         return userMapper.updateByPrimaryKeySelective(user);
-
     }
 
     @Override
-    public int deleteUser() {
-        return 0;
+    public int deleteUser(UserVo userVo) {
+        String u_id = userVo.getuId();
+        User user = userMapper.selectByPrimaryKey(u_id);
+        user.setuId(u_id);
+        userMapper.deleteuserScore(user.getuId());
+        userMapper.deleteuserRole(user.getuId());
+        return userMapper.deleteByPrimaryKey(user.getuId());
     }
 }

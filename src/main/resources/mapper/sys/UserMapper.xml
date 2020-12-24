@@ -149,4 +149,15 @@
       </if>
     </where>
   </select>
+    <!--删除用户成绩-->
+  <delete id ="deleteuserScore"  parameterType="java.lang.String">
+        delete from es_stu_score
+        where u_id = #{uId,jdbcType=VARCHAR}
+  </delete>
+
+    <!--删除用户角色-->
+  <delete id ="deleteuserRole"  parameterType="java.lang.String">
+        delete from es_u_r
+        where u_id = #{uId,jdbcType=VARCHAR}
+  </delete>
 </mapper>

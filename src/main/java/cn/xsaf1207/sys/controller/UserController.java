@@ -1,5 +1,6 @@
 package cn.xsaf1207.sys.controller;
 
+import cn.xsaf1207.sys.domain.User;
 import cn.xsaf1207.sys.service.UserService;
 import cn.xsaf1207.sys.vo.UserVo;
 import cn.xsaf1207.utils.ConstantData;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api")
@@ -19,7 +22,26 @@ public class UserController {
 
     @GetMapping("/alluser")
     public ResultData alluser(){
-        return null;
+        List<User> userList = userService.queryAllUser();
+        ResultData resultData = new ResultData();
+        try{
+            if (userList != null){
+                //成功 添加ResultData里的常量code 并赋值为0；
+                resultData.setCode(ConstantData.SUCCESS_CODE);
+                //添加ResultData里的常量data
+                resultData.setData(userList);
+                return resultData;
+            }
+            //添加ResultData里的常量code 并赋值为-1
+            resultData.setData(ConstantData.FAIL_CODE);
+            return resultData;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            //添加ResultData里的常量code 并赋值为-10
+            resultData.setCode(ConstantData.EXCEPTION_CODE);
+            return resultData;
+        }
     }
 
     @RequestMapping(value = "/updateuser",method = RequestMethod.PUT)

@@ -17,6 +17,10 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
+    int deleteuserScore(String uId);
+
+    int deleteuserRole(String uId);
+
     List<User> selectAllUser();
 
 }

@@ -47,6 +47,20 @@ public class UserController {
 
     @RequestMapping(value = "/deleteuser",method = RequestMethod.DELETE)
     public ResultData deleteuser(UserVo userVo){
-        return null;
+        ResultData deleteData = new ResultData();
+        try{
+            if(userService.deleteUser(userVo) == 1){
+                deleteData.setCode(ConstantData.SUCCESS_CODE);
+                return deleteData;
+            }
+            deleteData.setCode(ConstantData.FAIL_CODE);
+            return deleteData;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            deleteData.setCode(ConstantData.EXCEPTION_CODE);
+            return deleteData;
+        }
+
     }
 }

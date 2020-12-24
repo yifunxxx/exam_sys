@@ -30,11 +30,15 @@ public class UserSreviceImpl implements UserService {
         User user = userMapper.selectByPrimaryKey(u_id);
         user.setuPwd(u_id);
         return userMapper.updateByPrimaryKey(user);
-
     }
 
     @Override
-    public int deleteUser() {
-        return 0;
+    public int deleteUser(UserVo userVo) {
+        String u_id = userVo.getuId();
+        User user = userMapper.selectByPrimaryKey(u_id);
+        user.setuId(u_id);
+        userMapper.deleteuserScore(user.getuId());
+        userMapper.deleteuserRole(user.getuId());
+        return userMapper.deleteByPrimaryKey(user.getuId());
     }
 }

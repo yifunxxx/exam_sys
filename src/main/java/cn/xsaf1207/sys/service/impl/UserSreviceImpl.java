@@ -14,7 +14,7 @@ public class UserSreviceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-    @Override
+
     public List<User> queryAllUser() {
         //通过UserMapper查询数据库；
         return userMapper.selectAllUser();

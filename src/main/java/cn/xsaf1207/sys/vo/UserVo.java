@@ -5,5 +5,6 @@ import lombok.Data;
 
 @Data
 public class UserVo extends User {
+    private String uType;
     private String[] ids;
 }

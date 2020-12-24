@@ -22,14 +22,14 @@ public class UserController {
 
     @GetMapping("/alluser")
     public ResultData alluser(){
-        List<User> userList = userService.queryAllUser();
+        List<UserVo> uservoList = userService.queryAllUser();
         ResultData resultData = new ResultData();
         try{
-            if (userList != null){
+            if (uservoList != null){
                 //成功 添加ResultData里的常量code 并赋值为0；
                 resultData.setCode(ConstantData.SUCCESS_CODE);
                 //添加ResultData里的常量data
-                resultData.setData(userList);
+                resultData.setData(uservoList);
                 return resultData;
             }
             //添加ResultData里的常量code 并赋值为-1

@@ -6,6 +6,7 @@ import cn.xsaf1207.sys.service.UserService;
 import cn.xsaf1207.sys.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.util.List;
 
@@ -14,9 +15,10 @@ public class UserSreviceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-    @Override
+
     public List<User> queryAllUser() {
-        return null;
+        //通过UserMapper查询数据库；
+        return userMapper.selectAllUser();
     }
 
     @Override
@@ -27,9 +29,11 @@ public class UserSreviceImpl implements UserService {
     @Override
     public int resetPas(UserVo userVo) {
         String u_id = userVo.getuId();
-        User user = userMapper.selectByPrimaryKey(u_id);
-        user.setuPwd(u_id);
-        return userMapper.updateByPrimaryKey(user);
+
+        User user = new User();
+        String pwd = DigestUtils.md5DigestAsHex(u_id.getBytes());
+        user.setuPwd(pwd);
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override

@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface UserService {
     List<User> queryAllUser();
+
     int updateUser();
+
     int resetPas(UserVo userVo);
-    int deleteUser();
+
+    int deleteUser(UserVo userVo);
 }

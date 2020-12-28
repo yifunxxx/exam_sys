@@ -79,6 +79,20 @@ public class User {
         return uAvaiable;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "uId='" + uId + '\'' +
+                ", csId=" + csId +
+                ", uName='" + uName + '\'' +
+                ", uPwd='" + uPwd + '\'' +
+                ", uSex='" + uSex + '\'' +
+                ", uPhone='" + uPhone + '\'' +
+                ", uCreatime=" + uCreatime +
+                ", uAvaiable='" + uAvaiable + '\'' +
+                '}';
+    }
+
     public void setuAvaiable(String uAvaiable) {
         this.uAvaiable = uAvaiable == null ? null : uAvaiable.trim();
     }

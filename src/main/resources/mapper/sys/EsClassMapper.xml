@@ -55,4 +55,28 @@
     set cs_name = #{csName,jdbcType=VARCHAR}
     where cs_id = #{csId,jdbcType=INTEGER}
   </update>
+
+<!--  根据班级名查询班级id-->
+  <select id="selectCsnameByCsid" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    cs_id
+    from
+    es_class
+    where cs_name = #{csName,jdbcType=VARCHAR}
+  </select>
+
+<!--  查询所有班级-->
+  <select id="selectAllClass"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from es_class
+    <where>
+      <if test="csId != null and csId !=''">
+        and cs_id like concat("%",#{csId},"%")
+      </if>
+      <if test="csName != null and csName !=''">
+        and cs_name like concat("%",#{csName},"%")
+      </if>
+    </where>
+  </select>
 </mapper>

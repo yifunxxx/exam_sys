@@ -1,6 +1,7 @@
 package cn.xsaf1207.sys.mapper;
 
 import cn.xsaf1207.sys.domain.User;
+import cn.xsaf1207.sys.vo.UserVo;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface UserMapper {
 
     List<User> selectAllUser();
 
+    Integer selectRidByUid(String uId);
+
+    int insertUidRid(UserVo userVo);
 }

@@ -79,4 +79,33 @@
       r_avaiable = #{rAvaiable,jdbcType=VARCHAR}
     where r_id = #{rId,jdbcType=INTEGER}
   </update>
+
+<!--  根据用户id查询角色id-->
+  <select id="selectRidByUid" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    r_id
+    from es_u_r
+    where u_id = #{uId,jdbcType=VARCHAR}
+  </select>
+
+  <!--  查询所有角色-->
+  <select id="selectAllRole"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from es_role
+    <where>
+      <if test="rId != null and rId !=''">
+        and r_id like concat("%",#{rId},"%")
+      </if>
+      <if test="rName != null and rName !=''">
+        and r_name like concat("%",#{rName},"%")
+      </if>
+      <if test="rDesc != null and rDesc !=''">
+        and r_desc like concat("%",#{rDesc},"%")
+      </if>
+      <if test="rAvaiable != null and rAvaiable !=''">
+        and r_avaiable like concat("%",#{rAvaiable},"%")
+      </if>
+    </where>
+  </select>
 </mapper>

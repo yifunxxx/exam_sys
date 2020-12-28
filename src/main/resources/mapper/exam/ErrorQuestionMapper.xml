@@ -90,4 +90,10 @@
       eq_answer = #{eqAnswer,jdbcType=VARCHAR}
     where eq_id = #{eqId,jdbcType=INTEGER}
   </update>
+
+<!--  根据用户id删除错题集-->
+  <delete id="deleteByUid" parameterType="java.lang.String">
+     delete from es_error_question
+     where u_id = #{uId,jdbcType=VARCHAR}
+  </delete>
 </mapper>

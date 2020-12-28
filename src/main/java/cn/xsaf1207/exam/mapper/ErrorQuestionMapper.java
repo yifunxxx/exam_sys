@@ -14,4 +14,6 @@ public interface ErrorQuestionMapper {
     int updateByPrimaryKeySelective(ErrorQuestion record);
 
     int updateByPrimaryKey(ErrorQuestion record);
+
+    int deleteByUid(String uId);
 }

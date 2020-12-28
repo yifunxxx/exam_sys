@@ -149,6 +149,7 @@
       </if>
     </where>
   </select>
+
     <!--删除用户成绩-->
   <delete id ="deleteuserScore"  parameterType="java.lang.String">
         delete from es_stu_score
@@ -160,4 +161,20 @@
         delete from es_u_r
         where u_id = #{uId,jdbcType=VARCHAR}
   </delete>
+
+<!--  通过用户id查找角色id-->
+  <select id="selectRidByUid" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    r_id
+    from
+    es_u_r
+    where u_id = #{uId,jdbcType=VARCHAR}
+  </select>
+
+<!--  给用户分配角色-->
+  <insert id="insertUidRid" parameterType="cn.xsaf1207.sys.vo.UserVo">
+    insert into es_u_r (u_id, r_id)
+    values (#{uId,jdbcType=VARCHAR}, #{rId,jdbcType=INTEGER})
+  </insert>
+
 </mapper>

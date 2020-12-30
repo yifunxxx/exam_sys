@@ -20,4 +20,8 @@ public interface RoleMapper {
     Integer selectRidByUid(String uId);
 
     List<Role> selectAllRole();
+
+    Integer selectRidByRname(String uType);
+
+    List<String> selectUidsByRid(Integer rId);
 }

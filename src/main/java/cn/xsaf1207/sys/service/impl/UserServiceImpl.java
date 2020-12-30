@@ -90,4 +90,90 @@ public class UserServiceImpl implements UserService {
         userMapper.deleteuserRole(userVo.getuId());
         return userMapper.insertUidRid(userVo);
     }
+
+    @Override
+    public List<UserVo> getuser(UserVo userVo) {
+        List<User> users = userMapper.selectUser(userVo);
+        List<UserVo> userVos = new ArrayList<>();
+        if(userVo.getuType() == ""){
+            for(User user : users){
+                UserVo userVo1 = new UserVo();
+
+                userVo1.setuId(user.getuId());
+                userVo1.setuName(user.getuName());
+                userVo1.setuSex(user.getuSex());
+                userVo1.setuPwd(user.getuPwd());
+                userVo1.setuPhone(user.getuPhone());
+                userVo1.setuCreatime(user.getuCreatime());
+                userVo1.setCsId(user.getCsId());
+                userVo1.setuAvaiable(user.getuAvaiable());
+
+                userVo1.setCsName(esClassMapper.selectByPrimaryKey(userVo1.getCsId()).getCsName());
+
+                Integer rId = roleMapper.selectRidByUid(user.getuId());
+                if(rId != null){
+                    Role role = roleMapper.selectByPrimaryKey(rId);
+                    userVo1.setuType(role.getrName());
+                }
+                userVos.add(userVo1);
+            }
+        }
+        else{
+            List<String> uids = roleMapper.selectUidsByRid(roleMapper.selectRidByRname(userVo.getuType())) ;
+            System.out.println(uids);
+            for(User user : users){
+                if(uids.contains(user.getuId())){
+                    UserVo userVo1 = new UserVo();
+
+                    userVo1.setuId(user.getuId());
+                    userVo1.setuName(user.getuName());
+                    userVo1.setuSex(user.getuSex());
+                    userVo1.setuPwd(user.getuPwd());
+                    userVo1.setuPhone(user.getuPhone());
+                    userVo1.setuCreatime(user.getuCreatime());
+                    userVo1.setCsId(user.getCsId());
+                    userVo1.setuAvaiable(user.getuAvaiable());
+
+                    userVo1.setCsName(esClassMapper.selectByPrimaryKey(userVo1.getCsId()).getCsName());
+
+                    Integer rId = roleMapper.selectRidByUid(user.getuId());
+                    if(rId != null){
+                        Role role = roleMapper.selectByPrimaryKey(rId);
+                        userVo1.setuType(role.getrName());
+                    }
+                    userVos.add(userVo1);
+                }
+            }
+        }
+        return userVos;
+    }
+
+    @Override
+    public UserVo login(UserVo userVo) {
+        userVo.setuPwd(DigestUtils.md5DigestAsHex(userVo.getuPwd().getBytes()));
+        User user = userMapper.login(userVo);
+        if(null!=user){
+            UserVo userVo1 = new UserVo();
+
+            userVo1.setuId(user.getuId());
+            userVo1.setuName(user.getuName());
+            userVo1.setuSex(user.getuSex());
+            userVo1.setuPwd(user.getuPwd());
+            userVo1.setuPhone(user.getuPhone());
+            userVo1.setuCreatime(user.getuCreatime());
+            userVo1.setCsId(user.getCsId());
+            userVo1.setuAvaiable(user.getuAvaiable());
+
+            userVo1.setCsName(esClassMapper.selectByPrimaryKey(userVo1.getCsId()).getCsName());
+            Integer rId = roleMapper.selectRidByUid(userVo1.getuId());
+            if(rId != null){
+                Role role = roleMapper.selectByPrimaryKey(rId);
+                userVo1.setuType(role.getrName());
+            }
+            return userVo1;
+        }
+        else{
+            return null;
+        }
+    }
 }

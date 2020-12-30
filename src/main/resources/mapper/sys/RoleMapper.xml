@@ -93,19 +93,19 @@
     select
     <include refid="Base_Column_List" />
     from es_role
-    <where>
-      <if test="rId != null and rId !=''">
-        and r_id like concat("%",#{rId},"%")
-      </if>
-      <if test="rName != null and rName !=''">
-        and r_name like concat("%",#{rName},"%")
-      </if>
-      <if test="rDesc != null and rDesc !=''">
-        and r_desc like concat("%",#{rDesc},"%")
-      </if>
-      <if test="rAvaiable != null and rAvaiable !=''">
-        and r_avaiable like concat("%",#{rAvaiable},"%")
-      </if>
-    </where>
+  </select>
+  
+<!--  根据角色名字查询角色id-->
+  <select id="selectRidByRname" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select r_id from es_role where r_name like concat("%",#{uType,jdbcType=VARCHAR},"%")
+  </select>
+
+<!--  根据角色id查询用户列表-->
+  <select id="selectUidsByRid" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select
+    u_id
+    from es_u_r
+    where
+    r_id = #{rId,jdbcType=INTEGER}
   </select>
 </mapper>

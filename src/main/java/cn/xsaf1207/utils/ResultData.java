@@ -10,6 +10,14 @@ public class ResultData {
         return code;
     }
 
+    @Override
+    public String toString() {
+        return "ResultData{" +
+                "code=" + code +
+                ", data=" + data +
+                '}';
+    }
+
     public void setCode(Integer code) {
         this.code = code;
     }

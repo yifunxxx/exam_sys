@@ -159,8 +159,18 @@ public class UserController {
 
     @GetMapping("/getuser")
     public ResultData getuser(UserVo userVo){
-        System.out.println(userVo);
-        return null;
+        List<UserVo> userVos = userService.getuser(userVo);
+        ResultData resultData = new ResultData();
+        try{
+                resultData.setData(userVos);
+                resultData.setCode(ConstantData.SUCCESS_CODE);
+                return resultData;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            resultData.setCode(ConstantData.EXCEPTION_CODE);
+            return resultData;
+        }
     }
 
 }

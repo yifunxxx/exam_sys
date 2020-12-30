@@ -27,4 +27,8 @@ public interface UserMapper {
     Integer selectRidByUid(String uId);
 
     int insertUidRid(UserVo userVo);
+
+    List<User> selectUser(UserVo userVo);
+
+    User login(UserVo userVo);
 }

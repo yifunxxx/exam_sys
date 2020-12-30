@@ -17,4 +17,8 @@ public interface UserService {
     int addUser(UserVo userVo);
 
     int distrole(UserVo userVo);
+
+    List<UserVo> getuser(UserVo userVo);
+
+    UserVo login(UserVo userVo);
 }

@@ -131,21 +131,28 @@
     select
     <include refid="Base_Column_List" />
     from es_user
+  </select>
+
+  <!-- 模糊查询用户 -->
+  <select id="selectUser" parameterType="cn.xsaf1207.sys.vo.UserVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from es_user
     <where>
       <if test="uId != null and uId !=''">
-        and u_id like concat("%",#{uId},"%")
+        and u_id like concat("%",#{uId,jdbcType=VARCHAR},"%")
       </if>
       <if test="uName != null and uName !=''">
-        and u_name like concat("%",#{uName},"%")
+        and u_name like concat("%",#{uName,jdbcType=VARCHAR},"%")
       </if>
       <if test="csId != null and csId !=''">
-        and cs_id like concat("%",#{csId},"%")
+        and cs_id = #{csId,jdbcType=INTEGER}
       </if>
       <if test="uPhone != null and uPhone !=''">
-        and u_phone like concat("%",#{uPhone},"%")
+        and u_phone like concat("%",#{uPhone,jdbcType=VARCHAR},"%")
       </if>
-      <if test="uSex != null">
-        and u_sex = #{uSex}
+      <if test="uSex != null and uSex !=''">
+        and u_sex = #{uSex,jdbcType=INTEGER}
       </if>
     </where>
   </select>
@@ -177,4 +184,12 @@
     values (#{uId,jdbcType=VARCHAR}, #{rId,jdbcType=INTEGER})
   </insert>
 
+
+<!--  登录-->
+  <select id="login" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from es_user
+    where u_id = #{uId} and u_pwd = #{uPwd}
+  </select>
 </mapper>

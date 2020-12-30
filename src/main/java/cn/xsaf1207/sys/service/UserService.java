@@ -21,4 +21,6 @@ public interface UserService {
     List<UserVo> getuser(UserVo userVo);
 
     UserVo login(UserVo userVo);
+
+    int updatePwd(UserVo userVo);
 }

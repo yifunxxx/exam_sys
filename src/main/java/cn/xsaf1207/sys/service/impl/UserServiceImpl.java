@@ -176,4 +176,10 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
+    @Override
+    public int updatePwd(UserVo userVo) {
+        userVo.setuPwd(DigestUtils.md5DigestAsHex(userVo.getuPwd().getBytes()));
+        return userMapper.updateByPrimaryKeySelective(userVo);
+    }
 }

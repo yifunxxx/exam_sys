@@ -52,7 +52,6 @@ public class UserController {
      */
     @RequestMapping(value = "/updateuser",method = RequestMethod.PUT)
     public ResultData updateuser(@RequestBody UserVo userVo){
-        System.out.println(userVo.toString());
         ResultData resultData = new ResultData();
         try{
             if(userService.updateUser(userVo) == 1){
@@ -165,6 +164,29 @@ public class UserController {
                 resultData.setData(userVos);
                 resultData.setCode(ConstantData.SUCCESS_CODE);
                 return resultData;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            resultData.setCode(ConstantData.EXCEPTION_CODE);
+            return resultData;
+        }
+    }
+
+    /**
+     * 更新用户密码
+     * @param userVo
+     * @return
+     */
+    @RequestMapping(value = "/updatepwd",method = RequestMethod.PUT)
+    public ResultData updatepwd(@RequestBody UserVo userVo){
+        ResultData resultData = new ResultData();
+        try{
+            if(userService.updatePwd(userVo) == 1){
+                resultData.setCode(ConstantData.SUCCESS_CODE);
+                return resultData;
+            }
+            resultData.setCode(ConstantData.FAIL_CODE);
+            return resultData;
         }
         catch(Exception e){
             e.printStackTrace();
